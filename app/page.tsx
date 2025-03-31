@@ -44,7 +44,7 @@ export default function HomePage() {
         EXIF.getData(img as unknown as string, function (this: any) {
           const allExif = EXIF.getAllTags(this);
           const finalExifData =
-            Object.keys(allExif).length > 0 ? allExif : { Make: "Exif情報なし" };
+            Object.keys(allExif).length > 0 ? allExif : { Make: "No Exif" };
           setExifData(finalExifData);
           const { upperText, lowerText } = createCaption(finalExifData);
           setEditableUpper(upperText);
@@ -162,6 +162,11 @@ export default function HomePage() {
             onChange={handleFileChange}
             className="block mx-auto border-gray-500"
           />
+        </CardContent>
+        <CardContent>
+          No server-side processing. All operations are done in your browser.
+          <br />
+          Framed image is no exif data.
         </CardContent>
       </Card>
 
