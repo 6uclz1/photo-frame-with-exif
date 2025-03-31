@@ -146,7 +146,12 @@ export default function HomePage() {
     if (!processedUrl) return;
     const a = document.createElement("a");
     a.href = processedUrl;
-    a.download = "processed-frame.jpeg";
+    const now = new Date();
+    const formattedDate = now
+      .toISOString()
+      .replace(/[-:T]/g, "")
+      .slice(0, 15);
+    a.download = `${formattedDate}.jpg`;
     a.click();
   };
 
