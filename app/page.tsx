@@ -4,7 +4,6 @@ import { useState, useRef } from "react";
 import EXIF from "exif-js";
 import { Inter } from "next/font/google";
 
-// shadcn-ui のコンポーネント例（各コンポーネントは各自のパスに合わせて調整してください）
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -31,7 +30,6 @@ export default function HomePage() {
 
       const img = new Image();
       img.onload = () => {
-        // exif-js のタグ設定
         // @ts-ignore
         EXIF.Tags[0xa432] = "LensSpecification";
         // @ts-ignore
@@ -160,10 +158,10 @@ export default function HomePage() {
             type="file"
             accept="image/*"
             onChange={handleFileChange}
-            className="block mx-auto border-gray-500"
+            className="block mx-auto border-gray-500 text-neutral-500 cursor-pointer"
           />
         </CardContent>
-        <CardContent>
+        <CardContent className="text-neutral-400 text-sm mx-2 space-y-6">
           No server-side processing. All operations are done in your browser.
           <br />
           Framed image is no exif data.
