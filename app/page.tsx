@@ -4,10 +4,10 @@ import { useState, useRef } from "react";
 import EXIF from "exif-js";
 import { Inter } from "next/font/google";
 
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { FileInputCard } from "@/app/components/FileInputCard";
+import { OriginalImageCard } from "@/app/components/OriginalImageCard";
+import { ProcessedImageCard } from "@/app/components/ProcessedImageCard";
+import { ExifInfoCard } from "@/app/components/ExifInfoCard";
 
 const inter = Inter({ subsets: ["latin"], weight: ["400", "700"] });
 
@@ -151,97 +151,27 @@ export default function HomePage() {
       .toISOString()
       .replace(/[-:T]/g, "")
       .slice(0, 15);
-    a.download = `${formattedDate}.jpg`;
+    a.download = `${formattedDate}`;
     a.click();
   };
 
   return (
     <div className={`${inter.className} max-w-2xl mx-auto p-6 space-y-6`}>
-      <Card>
-        <CardContent className="space-y-4">
-          <Input
-            type="file"
-            accept="image/*"
-            onChange={handleFileChange}
-            className="block mx-auto border-gray-500 text-neutral-500 cursor-pointer"
-          />
-        </CardContent>
-        <CardContent className="text-neutral-400 text-sm mx-2 space-y-6">
-          No server-side processing. All operations are done in your browser.
-          <br />
-          Framed image is no exif data.
-        </CardContent>
-      </Card>
-
-      {originalUrl && (
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-xl font-semibold">Original</CardTitle>
-          </CardHeader>
-          <CardContent className="text-center">
-            <img src={originalUrl} alt="Original" className="border mx-auto" />
-          </CardContent>
-        </Card>
-      )}
-
+      <FileInputCard onFileChange={handleFileChange} />
+      {originalUrl && <OriginalImageCard originalUrl={originalUrl} />}
       <canvas ref={canvasRef} className="hidden" />
-
       {processedUrl && (
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-xl font-semibold">Framed img</CardTitle>
-          </CardHeader>
-          <CardContent className="text-center space-y-4">
-            <img src={processedUrl} alt="Processed" className="border mx-auto shadow-lg" />
-            <div className="flex justify-center space-x-4">
-              <Button variant="default" onClick={handleDownload}>
-                Download
-              </Button>
-            </div>
-            <CardTitle className="text-left">Text Edit</CardTitle>
-            <div className="space-y-4 max-w-md mx-auto">
-              <div>
-                <Label htmlFor="upperText" className="block text-sm font-medium">
-                  Title
-                </Label>
-                <Input
-                  id="upperText"
-                  type="text"
-                  value={editableUpper}
-                  onChange={(e) => setEditableUpper(e.target.value)}
-                  className="mt-1 w-full"
-                />
-              </div>
-              <div>
-                <Label htmlFor="lowerText" className="block text-sm font-medium">
-                  Description
-                </Label>
-                <Input
-                  id="lowerText"
-                  type="text"
-                  value={editableLower}
-                  onChange={(e) => setEditableLower(e.target.value)}
-                  className="mt-1 w-full"
-                />
-              </div>
-              <Button variant="outline" onClick={updateCaption} className="w-full">
-                Update
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
+        <ProcessedImageCard
+          processedUrl={processedUrl}
+          editableUpper={editableUpper}
+          editableLower={editableLower}
+          onUpperTextChange={setEditableUpper}
+          onLowerTextChange={setEditableLower}
+          onUpdateCaption={updateCaption}
+          onDownload={handleDownload}
+        />
       )}
-
-      {Object.keys(exifData).length > 0 && (
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-xl font-semibold">Exif Info</CardTitle>
-          </CardHeader>
-          <CardContent className="max-h-64 overflow-auto bg-gray-700 p-4 rounded text-sm">
-            {JSON.stringify(exifData, null, 2)}
-          </CardContent>
-        </Card>
-      )}
+      {Object.keys(exifData).length > 0 && <ExifInfoCard exifData={exifData} />}
     </div>
   );
 }
