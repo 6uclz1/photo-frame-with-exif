@@ -81,7 +81,7 @@ export default function HomePage() {
       ctx.filter = "none";
 
       // Overlay with semi-transparent white
-      ctx.fillStyle = "rgba(250, 250, 250, 0.5)";
+      ctx.fillStyle = "rgba(255, 255, 255, 0.7)";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
     } else if (frameType === "black") {
       // Draw blurred image
@@ -90,7 +90,7 @@ export default function HomePage() {
       ctx.filter = "none";
 
       // Overlay with semi-transparent black
-      ctx.fillStyle = "rgba(30, 30, 30, 0.5)";
+      ctx.fillStyle = "rgba(30, 30, 30, 0.7)";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
     }
 
