@@ -186,24 +186,26 @@ export default function HomePage() {
       {processedUrl && (
         <>
           <ProcessedImageCard
-          processedUrl={processedUrl}
-          editableUpper={editableUpper}
-          editableLower={editableLower}
-          onUpperTextChange={setEditableUpper}
-          onLowerTextChange={setEditableLower}
-          onUpdateCaption={updateCaption}
-          onDownload={handleDownload}
-        />
-          <Tabs defaultValue="white" onValueChange={(value) => setFrameType(value as "white" | "blur")}>
-            <TabsList>
+            processedUrl={processedUrl}
+            editableUpper={editableUpper}
+            editableLower={editableLower}
+            onUpperTextChange={setEditableUpper}
+            onLowerTextChange={setEditableLower}
+            onUpdateCaption={updateCaption}
+            onDownload={handleDownload}
+          />
+          <Tabs
+            defaultValue="white"
+            onValueChange={(value) => setFrameType(value as "white" | "blur")}
+            className="flex flex-col sm:flex-row sm:justify-center"
+          >
+            <TabsList className="flex flex-wrap justify-center">
               <TabsTrigger value="white">White Frame</TabsTrigger>
               <TabsTrigger value="blur">Blur Frame</TabsTrigger>
               <TabsTrigger value="black">Black Frame</TabsTrigger>
             </TabsList>
           </Tabs>
         </>
-
-        
       )}
       {Object.keys(exifData).length > 0 && <ExifInfoCard exifData={exifData} />}
     </div>
