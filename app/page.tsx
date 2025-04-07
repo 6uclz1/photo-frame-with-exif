@@ -75,19 +75,71 @@ export default function HomePage() {
       ctx.fillStyle = "#ffffff";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
     } else if (frameType === "blur") {
-      // Draw blurred image
-      ctx.filter = "blur(300px)";
-      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-      ctx.filter = "none";
+      // Safari fallback for blur effect
+      const scaledCanvas = document.createElement("canvas");
+      const scaledCtx = scaledCanvas.getContext("2d");
+      if (scaledCtx) {
+        const scaleFactor = 0.1; // Scale down for smaller blur
+        scaledCanvas.width = canvas.width * scaleFactor;
+        scaledCanvas.height = canvas.height * scaleFactor;
+
+        scaledCtx.drawImage(img, 0, 0, scaledCanvas.width, scaledCanvas.height);
+        scaledCtx.filter = "blur(30px)";
+        scaledCtx.drawImage(
+          scaledCanvas,
+          0,
+          0,
+          scaledCanvas.width,
+          scaledCanvas.height
+        );
+
+        ctx.drawImage(
+          scaledCanvas,
+          0,
+          0,
+          scaledCanvas.width,
+          scaledCanvas.height,
+          0,
+          0,
+          canvas.width,
+          canvas.height
+        );
+      }
 
       // Overlay with semi-transparent white
       ctx.fillStyle = "rgba(250, 250, 250, 0.5)";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
     } else if (frameType === "black") {
-      // Draw blurred image
-      ctx.filter = "blur(300px)";
-      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-      ctx.filter = "none";
+      // Safari fallback for blur effect
+      const scaledCanvas = document.createElement("canvas");
+      const scaledCtx = scaledCanvas.getContext("2d");
+      if (scaledCtx) {
+        const scaleFactor = 0.1; // Scale down for smaller blur
+        scaledCanvas.width = canvas.width * scaleFactor;
+        scaledCanvas.height = canvas.height * scaleFactor;
+
+        scaledCtx.drawImage(img, 0, 0, scaledCanvas.width, scaledCanvas.height);
+        scaledCtx.filter = "blur(30px)";
+        scaledCtx.drawImage(
+          scaledCanvas,
+          0,
+          0,
+          scaledCanvas.width,
+          scaledCanvas.height
+        );
+
+        ctx.drawImage(
+          scaledCanvas,
+          0,
+          0,
+          scaledCanvas.width,
+          scaledCanvas.height,
+          0,
+          0,
+          canvas.width,
+          canvas.height
+        );
+      }
 
       // Overlay with semi-transparent black
       ctx.fillStyle = "rgba(30, 30, 30, 0.5)";
