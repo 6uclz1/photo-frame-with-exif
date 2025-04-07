@@ -66,7 +66,7 @@ export default function HomePage() {
     const HORIZONTAL_MARGIN = img.width * 0.025;
     const VERTICAL_MARGIN = img.width * 0.025;
     const BOTTOM_MARGIN =
-      img.width > img.height ? img.height * 0.25 : img.width * 0.1;
+      img.width > img.height ? img.height * 0.25 : img.height * 0.15; // Adjusted for vertical images
 
     canvas.width = img.width + HORIZONTAL_MARGIN * 2;
     canvas.height = img.height + VERTICAL_MARGIN * 2 + BOTTOM_MARGIN;
@@ -100,7 +100,7 @@ export default function HomePage() {
       img.width > img.height ? img.height * 0.0275 : img.width * 0.03;
     const FONT_FAMILY = "Inter, sans-serif";
     const LINE_SPACING =
-      img.width > img.height ? img.height * 0.005 : img.width * 0.0045;
+      img.width > img.height ? img.height * 0.005 : img.height * 0.0045; // Adjusted for vertical images
 
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
